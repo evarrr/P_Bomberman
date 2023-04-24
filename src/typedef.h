@@ -15,7 +15,7 @@ typedef struct bonusjoueur{
 }bonus_joueur_t;
 
 typedef struct bombe{
-    int nbbombe3case;
+    int nbbombe3cases;
     int nbbombeligne;
 }nb_bombe_t;
 
