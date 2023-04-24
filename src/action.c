@@ -4,18 +4,39 @@
 #include "typedef.h"
 
 
-void deplacement(case_t* case,case_t* map,joueur_t* joueur,int direction){
+
+
+void deplacementJ1(case_t* map,joueur_t* joueur1,int direction){
     
+    //Le joueur1 va se deplacer en utilisant les fleches du clavier
     switch (direction){
         case HAUT:
-            joueur->posy=joueur->posy-1;
+            joueur1->posy=joueur1->posy-1;
         
         case BAS:
-            joueur->posy=joueur->posy +1;
+            joueur1->posy=joueur1->posy +1;
 
         case GAUCHE:
-            joueur->posx=joueur->posx -1;
+            joueur1->posx=joueur1->posx -1;
         case DROITE:
-            joueur ->posx=joueur->posx +1;
+            joueur1 ->posx=joueur1->posx +1;
+    }
+}
+
+
+void deplacementJ1(case_t* map,joueur_t* joueur2,int direction){
+    
+    //Le joueur2 va se deplacer en utilisant les touches q,s,d,z
+    switch (direction){
+        case HAUT:
+            joueur2->posy=joueur2->posy-1;
+        
+        case BAS:
+            joueur2->posy=joueur2->posy +1;
+
+        case GAUCHE:
+            joueur2->posx=joueur2->posx -1;
+        case DROITE:
+            joueur2 ->posx=joueur2->posx +1;
     }
 }
