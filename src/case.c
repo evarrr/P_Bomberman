@@ -69,6 +69,35 @@ void init_bloc_0(int taille,map_t map,SDL_Window* window,SDL_Renderer* renderer)
     }
 }
 
+void init_joueur(map_t map,joueur_t joueur_1,joueur_t joueur_2)
+{
+    joueur_1.posx=1;
+    joueur_1.posy=1;
+    joueur_2.posx=13;
+    joueur_2.posy=13;
+    map[1][1].type="joueur_1";
+    map[13][13].type="joueur_2";
+}
+
+void affichage_joueur_1(map_t map,case_t CASE,SDL_Window* window,SDL_Renderer* renderer)
+{
+    if(SDL_SetRenderDrawColor(renderer,0,0,255,SDL_ALPHA_OPAQUE)!=0)
+    {
+        SDL_Quit();
+    }
+    SDL_Rect rectangle;
+    rectangle.w=20;
+    rectangle.h=20;
+    int x=CASE.posx;
+    int y=CASE.posy;
+    rectangle.x=17+42*x;
+    rectangle.y=17+42*y;
+    if(SDL_RenderFillRect(renderer,&rectangle)!=0)
+    {
+        SDL_Quit();
+    }
+}
+
 /*void explosion(case_t* case,case_t* map,joueur_t* joueur1,joueur_t* joueur2){
     char* type_bombe=case->type;
     int posx_bombe=case->posx;
