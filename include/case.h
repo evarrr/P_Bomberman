@@ -15,14 +15,8 @@ void affichage_joueur_1(map_t map,joueur_t joueur1,SDL_Window* window,SDL_Render
 
 void init_bonus(int taille,case_t* map);
 
-void explosion(case_t* CASE,case_t* map);
+void explosion(case_t* CASE,map map,SDL_Window* window,SDL_Renderer* renderer);
 
 void poser_bombe(case_t* CASE,joueur_t* joueur);
-
-void ramassage(case_t* CASE,case_t* map,joueur_t* joueur);
-
-//fonctions joueur
-
-void deplacement(joueur_t* joueur);
 
 #endif

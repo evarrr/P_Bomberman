@@ -98,10 +98,10 @@ void affichage_joueur_1(map_t map,joueur_t joueur1,SDL_Window* window,SDL_Render
     }
 }
 
-/*void explosion(case_t* case,case_t* map,joueur_t* joueur1,joueur_t* joueur2){
-    char* type_bombe=case->type;
-    int posx_bombe=case->posx;
-    int posy_bombe=case->posy;
+void explosion(case_t* CASE,map_t map,SDL_Window* window,SDL_Renderer* renderer,joueur_t* joueur1,joueur_t* joueur2){
+    char* type_bombe=CASE->type;
+    int posx_bombe=CASE->posx;
+    int posy_bombe=CASE->posy;
     int portee;
     if(type_bombe=="bombe3cases"){
         portee=3;
@@ -113,27 +113,27 @@ void affichage_joueur_1(map_t map,joueur_t joueur1,SDL_Window* window,SDL_Render
     
     //regarde l'est
     while(i<=portee){
-        if(map[posx_bombe+i][posy_bombe]->type=="mur"){
+        if(strcmp(map[posx_bombe+i][posy_bombe].type,"mur")==0){
             i=portee+1;
         }
-        else if(map[posx_bombe+i][posy_bombe]->type=="bloc"){
-            map[posx_bombe+i][posy_bombe]->type="vide";
+        else if(strcmp(map[posx_bombe+i][posy_bombe].type,"bloc")==0){
+            map[posx_bombe+i][posy_bombe].type="vide";
             i=portee+1;
         }
-        else if(map[posx_bombe+i][posy_bombe]->type=="bonus"){
-            map[posx_bombe+i][posy_bombe]->type="vide";
+        else if(strcmp(map[posx_bombe+i][posy_bombe].type,"bonus")==0){
+            map[posx_bombe+i][posy_bombe].type="vide";
             i=i+1;
         }
-        else if(map[posx_bombe+i][posy_bombe]->type=="joueur1"){
+        else if(strcmp(map[posx_bombe+i][posy_bombe].type,"joueur1")==0){
             joueur1->vie=joueur1->vie-1;
             i=i+1;
         }
-        else if(map[posx_bombe+i][posy_bombe]->type=="joueur2"){
+        else if(strcmp(map[posx_bombe+i][posy_bombe].type,"joueur2")==0){
             joueur2->vie=joueur2->vie-1;
             i=i+1;
         }
-        else if(map[posx_bombe+i][posy_bombe]->type=="bombe_amorcee"){
-            explosion(map[posx_bombe+i][posy_bombe],map,joueur1,joueur2);
+        else if(strcmp(map[posx_bombe+i][posy_bombe]->type,"bombe_amorcee")==0){
+            explosion(map[posx_bombe+i][posy_bombe],map,window,renderer,joueur1,joueur2);
             i=i+1;
         }
         else{
@@ -230,4 +230,4 @@ void affichage_joueur_1(map_t map,joueur_t joueur1,SDL_Window* window,SDL_Render
         }
     }
     case->type="vide";
-} */
+} 
