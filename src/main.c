@@ -1,15 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL2/SDL.h>
+#include "case.h"
+#include "typedef.h"
 
-#define WINDOW_WIDTH 1280
-#define WINDOW_HEIGHT 720
+#define WINDOW_WIDTH 640
+#define WINDOW_HEIGHT 640
 
 void SDL_ExitWIthError(const char* message);
 
 
 int main(int argc, char*argv[]){
-
+    int taille=15;
     SDL_Window* window = NULL;
     SDL_Renderer *renderer=NULL;
 
@@ -20,7 +22,9 @@ int main(int argc, char*argv[]){
     //Création fenêtre + rendu
     if(SDL_CreateWindowAndRenderer(WINDOW_WIDTH,WINDOW_HEIGHT,0,&window,&renderer)!=0)
         SDL_ExitWIthError("Impossible de creer la fenêtre et le rendu");
-
+    map_t map;
+    init_mur(taille,map,window,renderer);
+    SDL_RenderPresent(renderer);
     /*************************************************************/
     
     SDL_bool program_launched = SDL_TRUE;
@@ -38,8 +42,9 @@ int main(int argc, char*argv[]){
             }
         }
    } 
-
-
+    /*******************************************************************/   
+    //Initialisation des murs de la map
+    
    /*******************************************************************/
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
