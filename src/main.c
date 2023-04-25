@@ -24,14 +24,15 @@ int main(int argc, char*argv[]){
         SDL_ExitWIthError("Impossible de creer la fenêtre et le rendu");
     map_t map;
     joueur_t joueur1;
-    joueur_1.vie=3;
+    joueur1.vie=3;
     joueur1.numjoueur=1;
     joueur_t joueur2;
     joueur2.vie=3;
     joueur2.numjoueur=2;
     init_mur(taille,map,window,renderer);
-    init_bloc_0(taille,map,window,renderer);
-
+    init_bloc_0(taille,map,window,renderer); 
+    init_joueur(map,&joueur1,&joueur2);
+    affichage_joueur_1(map,joueur1,window,renderer);
     SDL_RenderPresent(renderer);
     /*************************************************************/
     

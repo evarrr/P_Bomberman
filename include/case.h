@@ -9,9 +9,9 @@ void init_mur(int taille,map_t map,SDL_Window* window,SDL_Renderer* renderer);
 
 void init_bloc_0(int taille,map_t map,SDL_Window* window,SDL_Renderer* renderer);
 
-void init_joueur(map_t map,joueur_t joueur_1, joueur_t joueur_2);
+void init_joueur(map_t map,joueur_t *joueur_1, joueur_t* joueur_2); 
 
-void affichage_joueur_1(map_t map,case_t CASE,SDL_Window* window,SDL_Renderer* renderer);
+void affichage_joueur_1(map_t map,joueur_t joueur1,SDL_Window* window,SDL_Renderer* renderer);
 
 void init_bonus(int taille,case_t* map);
 
