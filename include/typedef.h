@@ -1,5 +1,8 @@
+#ifndef TYPEDEF_H
+#define TYPEDEF_H
+
 /*Definition de la zone de jeu*/
-typedef struct case{
+typedef struct CASE{
     int posx;
     int posy;
     char* type;
@@ -27,3 +30,7 @@ typedef struct joueur{
     nb_bombe_t arsenal;
     bonus_joueur_t bonus;
 }joueur_t;
+
+typedef case_t map_t[15][15];
+
+#endif
