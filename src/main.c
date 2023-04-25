@@ -24,6 +24,7 @@ int main(int argc, char*argv[]){
         SDL_ExitWIthError("Impossible de creer la fenêtre et le rendu");
     map_t map;
     init_mur(taille,map,window,renderer);
+    init_bloc_0(taille,map,window,renderer);
     SDL_RenderPresent(renderer);
     /*************************************************************/
     

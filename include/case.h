@@ -2,12 +2,12 @@
 #define CASE_H
 
 #include "typedef.h"
-#include "init_bloc_liste.h"
+
 //fonctions de modif de map
 
 void init_mur(int taille,map_t map,SDL_Window* window,SDL_Renderer* renderer);
 
-void init_bloc(int taille,case_t* map);
+void init_bloc_0(int taille,map_t map,SDL_Window* window,SDL_Renderer* renderer);
 
 void init_bonus(int taille,case_t* map);
 
