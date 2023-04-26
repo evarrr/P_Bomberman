@@ -7,7 +7,7 @@
 
 // mur = incassable, bloc = cassable
 
-void init_mur(int taille,map_t map,SDL_Window* window,SDL_Renderer* renderer){
+void init_mur(int taille,map_t map,SDL_Renderer* renderer){
     if(SDL_SetRenderDrawColor(renderer,128,0,0,SDL_ALPHA_OPAQUE)!=0)
     {
         SDL_Quit();
@@ -46,7 +46,7 @@ void init_mur(int taille,map_t map,SDL_Window* window,SDL_Renderer* renderer){
 }
 
 
-void init_bloc_0(int taille,map_t map,SDL_Window* window,SDL_Renderer* renderer){
+void init_bloc_0(int taille,map_t map,SDL_Renderer* renderer){
     if(SDL_SetRenderDrawColor(renderer,245,245,220,SDL_ALPHA_OPAQUE)!=0)
     {
         SDL_Quit();
@@ -79,7 +79,7 @@ void init_joueur(map_t map,joueur_t* joueur_1,joueur_t* joueur_2)
     map[13][13].type="joueur_2";
 }
 
-void affichage_joueur_1(map_t map,joueur_t joueur1,SDL_Window* window,SDL_Renderer* renderer)
+void affichage_joueur_1(map_t map,joueur_t joueur1,SDL_Renderer* renderer)
 {
     if(SDL_SetRenderDrawColor(renderer,100,100,255,SDL_ALPHA_OPAQUE)!=0)
     {
@@ -98,19 +98,32 @@ void affichage_joueur_1(map_t map,joueur_t joueur1,SDL_Window* window,SDL_Render
     }
 }
 
-void explosion(case_t* CASE,map_t map,SDL_Window* window,SDL_Renderer* renderer,joueur_t* joueur1,joueur_t* joueur2){
+void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,joueur_t* joueur2){
+    if(SDL_SetRenderDrawColor(renderer,255,94,5,SDL_ALPHA_OPAQUE)!=0)
+    {
+        SDL_Quit();
+    }
     char* type_bombe=CASE->type;
     int posx_bombe=CASE->posx;
     int posy_bombe=CASE->posy;
     int portee;
-    if(type_bombe=="bombe3cases"){
+    if(strcmp(type_bombe,"bombe3cases")==0){
         portee=3;
     }
-    if(type_bombe=="bombeligne"){
+    if(strcmp(type_bombe,"bombeligne")==0){
         portee=15;
     }
     int i=1;
+    SDL_Rect rectangle;
+    rectangle.w=40;
+    rectangle.h=40;
+    int max_droite=0;
+    int max_gauche=0;
+    int max_haut=0;
+    int max_bas=0;
     
+    
+    SDL_Delay(1000);
     //regarde l'est
     while(i<=portee){
         if(strcmp(map[posx_bombe+i][posy_bombe].type,"mur")==0){
@@ -119,115 +132,172 @@ void explosion(case_t* CASE,map_t map,SDL_Window* window,SDL_Renderer* renderer,
         else if(strcmp(map[posx_bombe+i][posy_bombe].type,"bloc")==0){
             map[posx_bombe+i][posy_bombe].type="vide";
             i=portee+1;
+            max_droite=max_droite+1;
         }
         else if(strcmp(map[posx_bombe+i][posy_bombe].type,"bonus")==0){
             map[posx_bombe+i][posy_bombe].type="vide";
             i=i+1;
+            max_droite=max_droite+1;
         }
         else if(strcmp(map[posx_bombe+i][posy_bombe].type,"joueur1")==0){
             joueur1->vie=joueur1->vie-1;
             i=i+1;
+            max_droite=max_droite+1;
         }
         else if(strcmp(map[posx_bombe+i][posy_bombe].type,"joueur2")==0){
             joueur2->vie=joueur2->vie-1;
             i=i+1;
+            max_droite=max_droite+1;
         }
-        else if(strcmp(map[posx_bombe+i][posy_bombe]->type,"bombe_amorcee")==0){
-            explosion(map[posx_bombe+i][posy_bombe],map,window,renderer,joueur1,joueur2);
-            i=i+1;
+        else if(strcmp(map[posx_bombe+i][posy_bombe].type,"bombe_amorcee")==0){
+            explosion(&(map[posx_bombe+i][posy_bombe]),map,renderer,joueur1,joueur2);
+            i=portee+1; // la deuxieme bombe ira forcement plus loin que la première
+            max_droite=max_droite+1;
         }
         else{
             i=i+1;
+            max_droite=max_droite+1;
         }
     }
         //regarde l'ouest
     while(i<=portee){
-        if(map[posx_bombe-i][posy_bombe]->type=="mur"){
+        if(strcmp(map[posx_bombe-i][posy_bombe].type,"mur")==0){
             i=portee+1;
         }
-        else if(map[posx_bombe-i][posy_bombe]->type=="bloc"){
-            map[posx_bombe-i][posy_bombe]->type="vide";
+        else if(strcmp(map[posx_bombe-i][posy_bombe].type,"bloc")==0){
+            map[posx_bombe-i][posy_bombe].type="vide";
             i=portee+1;
+            max_gauche=max_gauche+1;
         }
-        else if(map[posx_bombe-i][posy_bombe]->type=="bonus"){
-            map[posx_bombe-i][posy_bombe]->type="vide";
+        else if(strcmp(map[posx_bombe-i][posy_bombe].type,"bonus")==0){
+            map[posx_bombe-i][posy_bombe].type="vide";
             i=i+1;
+            max_gauche=max_gauche+1;
         }
-        else if(map[posx_bombe-i][posy_bombe]->type=="joueur1"){
+        else if(strcmp(map[posx_bombe-i][posy_bombe].type,"joueur1")==0){
             joueur1->vie=joueur1->vie-1;
             i=i+1;
+            max_gauche=max_gauche+1;
         }
-        else if(map[posx_bombe-i][posy_bombe]->type=="joueur2"){
+        else if(strcmp(map[posx_bombe-i][posy_bombe].type,"joueur2")==0){
             joueur2->vie=joueur2->vie-1;
             i=i+1;
+            max_gauche=max_gauche+1;
         }
-        else if(map[posx_bombe-i][posy_bombe]->type=="bombe_amorcee"){
-            explosion(map[posx_bombe-i][posy_bombe],map,joueur1,joueur2);
-            i=i+1;
+        else if(strcmp(map[posx_bombe-i][posy_bombe].type,"bombe_amorcee")==0){
+            explosion(&(map[posx_bombe-i][posy_bombe]),map,renderer,joueur1,joueur2);
+            i=portee+1;
+            max_gauche=max_gauche+1;
         }
         else{
             i=i+1;
+            max_gauche=max_gauche+1;
         }
     }
 
         //regarde le nord
     while(i<=portee){
-        if(map[posx_bombe][posy_bombe+i]->type=="mur"){
+        if(strcmp(map[posx_bombe][posy_bombe+i].type,"mur")==0){
             i=portee+1;
         }
-        else if(map[posx_bombe][posy_bombe+i]->type=="bloc"){
-            map[posx_bombe][posy_bombe+i]->type="vide";
+        else if(strcmp(map[posx_bombe][posy_bombe+i].type,"bloc")==0){
+            map[posx_bombe][posy_bombe+i].type="vide";
             i=portee+1;
+            max_haut=max_haut+1;
         }
-        else if(map[posx_bombe][posy_bombe+i]->type=="bonus"){
-            map[posx_bombe][posy_bombe+i]->type="vide";
+        else if(strcmp(map[posx_bombe][posy_bombe+i].type,"bonus")==0){
+            map[posx_bombe][posy_bombe+i].type="vide";
             i=i+1;
+            max_haut=max_haut+1;
         }
-        else if(map[posx_bombe][posy_bombe+i]->type=="joueur1"){
+        else if(strcmp(map[posx_bombe][posy_bombe+i].type,"joueur1")==0){
             joueur1->vie=joueur1->vie-1;
             i=i+1;
+            max_haut=max_haut+1;
         }
-        else if(map[posx_bombe][posy_bombe+i]->type=="joueur2"){
+        else if(strcmp(map[posx_bombe][posy_bombe+i].type,"joueur2")==0){
             joueur2->vie=joueur2->vie-1;
             i=i+1;
+            max_haut=max_haut+1;
         }
-        else if(map[posx_bombe][posy_bombe+i]->type=="bombe_amorcee"){
-            explosion(map[posx_bombe][posy_bombe+i],map,joueur1,joueur2);
-            i=i+1;
+        else if(strcmp(map[posx_bombe][posy_bombe+i].type,"bombe_amorcee")==0){
+            explosion(&(map[posx_bombe][posy_bombe+i]),map,renderer,joueur1,joueur2);
+            i=portee+1;
+            max_haut=max_haut+1;
         }
         else{
             i=i+1;
+            max_haut=max_haut+1;
         }
     }
 
-        //regarde le nord
+        //regarde le sud
     while(i<=portee){
-        if(map[posx_bombe][posy_bombe-i]->type=="mur"){
+        if(strcmp(map[posx_bombe][posy_bombe-i].type,"mur")==0){
             i=portee+1;
         }
-        else if(map[posx_bombe][posy_bombe-i]->type=="bloc"){
-            map[posx_bombe][posy_bombe-i]->type="vide";
+        else if(strcmp(map[posx_bombe][posy_bombe-i].type,"bloc")==0){
+            map[posx_bombe][posy_bombe-i].type="vide";
             i=portee+1;
+            max_bas=max_bas+1;
         }
-        else if(map[posx_bombe][posy_bombe-i]->type=="bonus"){
-            map[posx_bombe][posy_bombe-i]->type="vide";
+        else if(strcmp(map[posx_bombe][posy_bombe-i].type,"bonus")==0){
+            map[posx_bombe][posy_bombe-i].type="vide";
             i=i+1;
+            max_bas=max_bas+1;
         }
-        else if(map[posx_bombe][posy_bombe-i]->type=="joueur1"){
+        else if(strcmp(map[posx_bombe][posy_bombe-i].type,"joueur1")==0){
             joueur1->vie=joueur1->vie-1;
             i=i+1;
+            max_bas=max_bas+1;
         }
-        else if(map[posx_bombe][posy_bombe-i]->type=="joueur2"){
+        else if(strcmp(map[posx_bombe][posy_bombe-i].type,"joueur2")==0){
             joueur2->vie=joueur2->vie-1;
             i=i+1;
+            max_bas=max_bas+1;
         }
-        else if(map[posx_bombe][posy_bombe-i]->type=="bombe_amorcee"){
-            explosion(map[posx_bombe][posy_bombe-i],map,joueur1,joueur2);
-            i=i+1;
+        else if(strcmp(map[posx_bombe][posy_bombe-i].type,"bombe_amorcee")==0){
+            explosion(&(map[posx_bombe][posy_bombe-i]),map,renderer,joueur1,joueur2);
+            i=portee+1;
+            max_bas=max_bas+1;
         }
         else{
             i=i+1;
+            max_bas=max_bas+1;
         }
     }
-    case->type="vide";
+    CASE->type="vide";
+
+    //Affichage de l'explosion
+    rectangle.y=7+posy_bombe*42;
+    for(int i=1;i<max_gauche;++i){
+        rectangle.x=7+(posx_bombe-i)*42;
+        if(SDL_RenderFillRect(renderer,&rectangle)!=0)
+        {
+            SDL_Quit();
+        }
+    }
+    for(int i=1;i<max_droite;++i){
+        rectangle.x=7+(posx_bombe+i)*42;
+        if(SDL_RenderFillRect(renderer,&rectangle)!=0)
+        {
+            SDL_Quit();
+        }
+    }
+    rectangle.x=7+posx_bombe*42;
+    for(int i=1;i<max_bas;++i){
+        rectangle.y=7+(posy_bombe-i)*42;
+        if(SDL_RenderFillRect(renderer,&rectangle)!=0)
+        {
+            SDL_Quit();
+        }
+    }
+    for(int i=1;i<max_haut;++i){
+        rectangle.y=7+(posy_bombe+i)*42;
+        if(SDL_RenderFillRect(renderer,&rectangle)!=0)
+        {
+            SDL_Quit();
+        }
+    }
+    SDL_RenderPresent(renderer);
 } 

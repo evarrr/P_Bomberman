@@ -5,17 +5,17 @@
 
 //fonctions de modif de map
 
-void init_mur(int taille,map_t map,SDL_Window* window,SDL_Renderer* renderer);
+void init_mur(int taille,map_t map,SDL_Renderer* renderer);
 
-void init_bloc_0(int taille,map_t map,SDL_Window* window,SDL_Renderer* renderer);
+void init_bloc_0(int taille,map_t map,SDL_Renderer* renderer);
 
 void init_joueur(map_t map,joueur_t *joueur_1, joueur_t* joueur_2); 
 
-void affichage_joueur_1(map_t map,joueur_t joueur1,SDL_Window* window,SDL_Renderer* renderer);
+void affichage_joueur_1(map_t map,joueur_t joueur1,SDL_Renderer* renderer);
 
 void init_bonus(int taille,case_t* map);
 
-void explosion(case_t* CASE,map map,SDL_Window* window,SDL_Renderer* renderer);
+void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,joueur_t* joueur2);
 
 void poser_bombe(case_t* CASE,joueur_t* joueur);
 

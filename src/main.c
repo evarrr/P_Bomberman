@@ -29,11 +29,12 @@ int main(int argc, char*argv[]){
     joueur_t joueur2;
     joueur2.vie=3;
     joueur2.numjoueur=2;
-    init_mur(taille,map,window,renderer);
-    init_bloc_0(taille,map,window,renderer); 
+    init_mur(taille,map,renderer);
+    init_bloc_0(taille,map,renderer); 
     init_joueur(map,&joueur1,&joueur2);
-    affichage_joueur_1(map,joueur1,window,renderer);
+    affichage_joueur_1(map,joueur1,renderer);
     SDL_RenderPresent(renderer);
+    map[1][5].type="bombe3cases";
     /*************************************************************/
     
     SDL_bool program_launched = SDL_TRUE;
