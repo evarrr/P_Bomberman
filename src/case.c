@@ -68,7 +68,7 @@ void init_bloc_0(int taille,map_t map,SDL_Renderer* renderer){
         }
     }
     SDL_RenderPresent(renderer);
-    SDL_Delay(1000);
+    SDL_Delay(200);
 }
 
 void init_joueur(map_t map,joueur_t* joueur_1,joueur_t* joueur_2)
@@ -99,7 +99,7 @@ void affichage_joueur_1(map_t map,joueur_t joueur1,SDL_Renderer* renderer)
         SDL_Quit();
     }
     SDL_RenderPresent(renderer);
-    SDL_Delay(1000);
+    SDL_Delay(200);
 }
 
 void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,joueur_t* joueur2){
@@ -124,11 +124,9 @@ void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,j
     int max_droite=0;
     int max_gauche=0;
     int max_haut=0;
-    int max_bas=0;
-    printf("%d\n",posx_bombe);
+    int max_bas=0;    
     
-    
-    SDL_Delay(1000);
+    SDL_Delay(200);
     //regarde l'est
     while(i<=portee){
         if(strcmp(map[posx_bombe+i][posy_bombe].type,"mur")==0){
@@ -272,9 +270,11 @@ void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,j
         else{
             i=i+1;
             max_bas=max_bas+1;
+
         }
     }
     CASE->type="vide";
+    printf("%d\n",max_droite);
 
     //Affichage de l'explosion
     rectangle.x=7+posx_bombe*42;
@@ -283,38 +283,41 @@ void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,j
     {
         SDL_Quit();
     }
-    for(int i=1;i<max_gauche;++i){
-        rectangle.x=7+(posx_bombe-i)*42;
-        if(SDL_RenderFillRect(renderer,&rectangle)!=0)
-        {
-            SDL_Quit();
-        }
-    }
-    for(int i=1;i<max_droite;++i){
-        rectangle.x=7+(posx_bombe+i)*42;
-        if(SDL_RenderFillRect(renderer,&rectangle)!=0)
-        {
-            SDL_Quit();
-        }
-        printf("test\n");
-    }
-    rectangle.x=7+posx_bombe*42;
-    for(int i=1;i<max_bas;++i){
-        rectangle.y=7+(posy_bombe-i)*42;
-        if(SDL_RenderFillRect(renderer,&rectangle)!=0)
-        {
-            SDL_Quit();
-        }
-    }
-    for(int i=1;i<max_haut;++i){
-        rectangle.y=7+(posy_bombe+i)*42;
-        if(SDL_RenderFillRect(renderer,&rectangle)!=0)
-        {
-            SDL_Quit();
-        }
-    }
-    printf("%d\n",max_bas);
     SDL_RenderPresent(renderer);
-    SDL_Delay(1000);
-    SDL_RenderPresent(renderer);
+    SDL_Delay(200);
+    i=1;
+    for(;i<=portee;++i){
+        if(i<=max_gauche){
+            rectangle.x=7+(posx_bombe-i)*42;
+            if(SDL_RenderFillRect(renderer,&rectangle)!=0)
+            {
+                SDL_Quit();
+            }
+        }
+        if(i<=max_droite){
+            rectangle.x=7+(posx_bombe+i)*42;
+            if(SDL_RenderFillRect(renderer,&rectangle)!=0)
+            {
+                SDL_Quit();
+            }
+        }
+        rectangle.x=7+posx_bombe*42;
+        if(i<=max_bas){
+            rectangle.y=7+(posy_bombe-i)*42;
+            if(SDL_RenderFillRect(renderer,&rectangle)!=0)
+            {
+                SDL_Quit();
+            }
+        }
+        if(i<=max_haut){
+            rectangle.y=7+(posy_bombe+i)*42;
+            if(SDL_RenderFillRect(renderer,&rectangle)!=0)
+            {
+                SDL_Quit();
+            }
+        }
+        SDL_RenderPresent(renderer);
+        SDL_Delay(200);
+    }
+    SDL_Delay(400);
 }
