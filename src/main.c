@@ -35,6 +35,8 @@ int main(int argc, char*argv[]){
     affichage_joueur_1(map,joueur1,renderer);
     SDL_RenderPresent(renderer);
     map[1][5].type="bombe3cases";
+    explosion(&map[1][5],map,renderer,&joueur1,&joueur2);
+    SDL_RenderPresent(renderer);
     /*************************************************************/
     
     SDL_bool program_launched = SDL_TRUE;

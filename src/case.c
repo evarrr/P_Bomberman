@@ -67,6 +67,8 @@ void init_bloc_0(int taille,map_t map,SDL_Renderer* renderer){
             }
         }
     }
+    SDL_RenderPresent(renderer);
+    SDL_Delay(1000);
 }
 
 void init_joueur(map_t map,joueur_t* joueur_1,joueur_t* joueur_2)
@@ -96,6 +98,8 @@ void affichage_joueur_1(map_t map,joueur_t joueur1,SDL_Renderer* renderer)
     {
         SDL_Quit();
     }
+    SDL_RenderPresent(renderer);
+    SDL_Delay(1000);
 }
 
 void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,joueur_t* joueur2){
@@ -121,6 +125,7 @@ void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,j
     int max_gauche=0;
     int max_haut=0;
     int max_bas=0;
+    printf("%d\n",posx_bombe);
     
     
     SDL_Delay(1000);
@@ -160,6 +165,7 @@ void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,j
         }
     }
         //regarde l'ouest
+    i=1;
     while(i<=portee){
         if(strcmp(map[posx_bombe-i][posy_bombe].type,"mur")==0){
             i=portee+1;
@@ -196,6 +202,7 @@ void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,j
     }
 
         //regarde le nord
+    i=1;
     while(i<=portee){
         if(strcmp(map[posx_bombe][posy_bombe+i].type,"mur")==0){
             i=portee+1;
@@ -232,6 +239,7 @@ void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,j
     }
 
         //regarde le sud
+    i=1;
     while(i<=portee){
         if(strcmp(map[posx_bombe][posy_bombe-i].type,"mur")==0){
             i=portee+1;
@@ -269,7 +277,12 @@ void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,j
     CASE->type="vide";
 
     //Affichage de l'explosion
+    rectangle.x=7+posx_bombe*42;
     rectangle.y=7+posy_bombe*42;
+    if(SDL_RenderFillRect(renderer,&rectangle)!=0)
+    {
+        SDL_Quit();
+    }
     for(int i=1;i<max_gauche;++i){
         rectangle.x=7+(posx_bombe-i)*42;
         if(SDL_RenderFillRect(renderer,&rectangle)!=0)
@@ -283,6 +296,7 @@ void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,j
         {
             SDL_Quit();
         }
+        printf("test\n");
     }
     rectangle.x=7+posx_bombe*42;
     for(int i=1;i<max_bas;++i){
@@ -299,5 +313,8 @@ void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,j
             SDL_Quit();
         }
     }
+    printf("%d\n",max_bas);
     SDL_RenderPresent(renderer);
-} 
+    SDL_Delay(1000);
+    SDL_RenderPresent(renderer);
+}
