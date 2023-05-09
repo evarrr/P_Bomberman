@@ -25,7 +25,7 @@ void deplacementJ1(joueur_t* joueur1,int direction){
 };
 
 
-void deplacementJ2(joueur_t* joueur2,int direction){
+void deplacementJ2(case_t* map,joueur_t* joueur2,int direction){
     
     //Le joueur2 va se deplacer en utilisant les touches q,s,d,z
     switch (direction){
