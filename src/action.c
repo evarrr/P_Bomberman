@@ -6,7 +6,7 @@
 
 
 
-void deplacementJ1(case_t* map,joueur_t* joueur1,int direction){
+void deplacementJ1(joueur_t* joueur1,int direction){
     
     //Le joueur1 va se deplacer en utilisant les fleches du clavier
     switch (direction){
@@ -18,13 +18,14 @@ void deplacementJ1(case_t* map,joueur_t* joueur1,int direction){
 
         case GAUCHE:
             joueur1->posx=joueur1->posx -1;
+
         case DROITE:
             joueur1 ->posx=joueur1->posx +1;
     }
-}
+};
 
 
-void deplacementJ1(case_t* map,joueur_t* joueur2,int direction){
+void deplacementJ2(joueur_t* joueur2,int direction){
     
     //Le joueur2 va se deplacer en utilisant les touches q,s,d,z
     switch (direction){
@@ -36,7 +37,8 @@ void deplacementJ1(case_t* map,joueur_t* joueur2,int direction){
 
         case GAUCHE:
             joueur2->posx=joueur2->posx -1;
+
         case DROITE:
             joueur2 ->posx=joueur2->posx +1;
     }
-}
+};

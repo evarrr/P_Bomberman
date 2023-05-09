@@ -33,4 +33,6 @@ typedef struct joueur{
 
 typedef case_t map_t[15][15];
 
+enum{ HAUT ,BAS, DROITE, GAUCHE};
+
 #endif
