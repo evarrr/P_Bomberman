@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include "case.h"
 #include "typedef.h"
+#include "action.h"
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 640
@@ -30,18 +31,19 @@ int main(int argc, char*argv[]){
     joueur2.vie=3;
     joueur2.numjoueur=2;
     init_mur(taille,map,renderer);
-    init_bloc_0(taille,map,renderer); 
+    init_bloc_0(taille,map,renderer);
     init_joueur(map,&joueur1,&joueur2);
     affichage_joueur_1(map,joueur1,renderer);
     SDL_RenderPresent(renderer);
     map[1][5].type="bombe3cases";
     explosion(&map[1][5],map,renderer,&joueur1,&joueur2);
+
     SDL_RenderPresent(renderer);
     /*************************************************************/
     
     SDL_bool program_launched = SDL_TRUE;
 
-   while(program_launched){
+    while(program_launched){
     SDL_Event event;
 
         while(SDL_PollEvent(&event)){
@@ -49,14 +51,77 @@ int main(int argc, char*argv[]){
                 case SDL_QUIT:
                     program_launched = SDL_FALSE;
                     break;
+
+
+                case SDL_KEYDOWN:           /*l'action s'effectuera quand on appuie sur la touche pas quand on la relache*/
+                    switch(event.key.keysym.sym){
+
+                        //deplacement du joueur1
+                            case SDLK_UP:
+                                //fais le deplacement vers le haut
+                                deplacementJ1(&map,&joueur1,HAUT);                      
+                                continue;           /*ne fait pas un break car sinon sort tres  vite*/
+                            
+                                                
+                            case SDLK_DOWN:
+                                // fait le deplacement vers le bas
+                                deplacementJ1(&map,&joueur1,BAS);
+                                continue;
+                            
+                            case SDLK_RIGHT:
+                                // fait le deplacement vers la droite
+                                deplacementJ1(&map,&joueur1,DROITE);
+                                continue;
+                            
+                            case SDLK_LEFT:
+                                //fait le deplacement vers la gauche
+                                deplacementJ1(&map,&joueur1,GAUCHE);
+                                continue;
+
+                        
+
+
+                        //deplacement du joueur2
+                            case SDLK_z:
+                                //fais le deplacement vers le haut
+                                deplacementJ2(&map,&joueur2,HAUT);                      
+                                break;           /*ne fait pas un break car sinon sort tres  vite*/
+                            
+                                                
+                            case SDLK_s:
+                                // fait le deplacement vers le bas
+                                deplacementJ2(&map,&joueur2,BAS);
+                                continue;
+                            
+                            case SDLK_d:
+                                // fait le deplacement vers la droite
+                                deplacementJ2(&map,&joueur2,DROITE);
+                                continue;
+                            
+                            case SDLK_q:
+                                //fait le deplacement vers la gauche
+                                deplacementJ2(&map,&joueur2,GAUCHE);
+                                continue;
+
+                            
+
+                            //Cas par defaut
+                            default:
+                                break;
+                    }
+                    
                 default:
-                    break;    
+                    break;       
             }
         }
    } 
-    /*******************************************************************/   
-    //Initialisation des murs de la map
+
+
+
+                
     
+   
+
    /*******************************************************************/
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
@@ -65,6 +130,9 @@ int main(int argc, char*argv[]){
     return EXIT_SUCCESS;
 
 }
+
+
+
 
  void SDL_ExitWIthError(const char * message){
     SDL_Log("ERREUR: %s > %s\n", message, SDL_GetError());
