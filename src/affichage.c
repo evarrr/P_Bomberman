@@ -31,7 +31,6 @@ void affichage_explosion(case_t* CASE,int max_haut,int max_bas,int max_droite,in
     int maxi=max(max_haut,max_bas);
     maxi=max(maxi,max_droite);
     maxi=max(maxi,max_gauche);
-    
     int i=1;
     while(i<=maxi){
         rectangle.y=7+CASE->posy*42;
@@ -116,4 +115,26 @@ void affichage_explosion(case_t* CASE,int max_haut,int max_bas,int max_droite,in
         }
         ++i;
     }
+    SDL_Delay(1500);
+}
+
+void affichage_joueur_1(map_t map,joueur_t joueur1,SDL_Renderer* renderer)
+{
+    if(SDL_SetRenderDrawColor(renderer,100,100,255,SDL_ALPHA_OPAQUE)!=0)
+    {
+        SDL_Quit();
+    }
+    SDL_Rect rectangle;
+    rectangle.w=20;
+    rectangle.h=20;
+    int x=joueur1.posx;
+    int y=joueur1.posy;
+    rectangle.x=17+42*x;
+    rectangle.y=17+42*y;
+    if(SDL_RenderFillRect(renderer,&rectangle)!=0)
+    {
+        SDL_Quit();
+    }
+    SDL_RenderPresent(renderer);
+    SDL_Delay(200);
 }

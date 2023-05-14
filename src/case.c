@@ -82,27 +82,6 @@ void init_joueur(map_t map,joueur_t* joueur_1,joueur_t* joueur_2)
     map[13][13].type="joueur_2";
 }
 
-void affichage_joueur_1(map_t map,joueur_t joueur1,SDL_Renderer* renderer)
-{
-    if(SDL_SetRenderDrawColor(renderer,100,100,255,SDL_ALPHA_OPAQUE)!=0)
-    {
-        SDL_Quit();
-    }
-    SDL_Rect rectangle;
-    rectangle.w=20;
-    rectangle.h=20;
-    int x=joueur1.posx;
-    int y=joueur1.posy;
-    rectangle.x=17+42*x;
-    rectangle.y=17+42*y;
-    if(SDL_RenderFillRect(renderer,&rectangle)!=0)
-    {
-        SDL_Quit();
-    }
-    SDL_RenderPresent(renderer);
-    SDL_Delay(200);
-}
-
 void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,joueur_t* joueur2){
     if(SDL_SetRenderDrawColor(renderer,255,94,5,SDL_ALPHA_OPAQUE)!=0)
     {

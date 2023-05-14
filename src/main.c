@@ -4,6 +4,7 @@
 #include "case.h"
 #include "typedef.h"
 #include "action.h"
+#include "affichage.h"
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 640
@@ -34,8 +35,9 @@ int main(int argc, char*argv[]){
     init_bloc_0(taille,map,renderer);
     init_joueur(map,&joueur1,&joueur2);
     affichage_joueur_1(map,joueur1,renderer);
-    map[1][5].type="bombe3cases";
-    explosion(&map[1][5],map,renderer,&joueur1,&joueur2);
+    map[1][4].type="bombe3cases";
+    explosion(&map[1][4],map,renderer,&joueur1,&joueur2);
+    affichage_joueur_1(map,joueur1,renderer);
 
     SDL_RenderPresent(renderer);
     /*************************************************************/
@@ -112,6 +114,7 @@ int main(int argc, char*argv[]){
                 default:
                     break;       
             }
+            SDL_Delay(17);
         }
    } 
 
