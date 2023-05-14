@@ -34,7 +34,6 @@ int main(int argc, char*argv[]){
     init_bloc_0(taille,map,renderer);
     init_joueur(map,&joueur1,&joueur2);
     affichage_joueur_1(map,joueur1,renderer);
-    SDL_RenderPresent(renderer);
     map[1][5].type="bombe3cases";
     explosion(&map[1][5],map,renderer,&joueur1,&joueur2);
 

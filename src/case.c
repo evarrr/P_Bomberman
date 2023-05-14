@@ -4,6 +4,7 @@
 #include<string.h>
 #include "typedef.h"
 #include "case.h"
+#include "affichage.h"
 
 // mur = incassable, bloc = cassable
 
@@ -118,9 +119,9 @@ void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,j
         portee=15;
     }
     int i=1;
-    SDL_Rect rectangle;
-    rectangle.w=40;
-    rectangle.h=40;
+    // SDL_Rect rectangle;
+    // rectangle.w=40;
+    // rectangle.h=40;
     int max_droite=0;
     int max_gauche=0;
     int max_haut=0;
@@ -133,27 +134,22 @@ void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,j
             i=portee+1;
         }
         else if(strcmp(map[posx_bombe+i][posy_bombe].type,"bloc")==0){
-            map[posx_bombe+i][posy_bombe].type="vide";
             i=portee+1;
             max_droite=max_droite+1;
         }
         else if(strcmp(map[posx_bombe+i][posy_bombe].type,"bonus")==0){
-            map[posx_bombe+i][posy_bombe].type="vide";
             i=i+1;
             max_droite=max_droite+1;
         }
         else if(strcmp(map[posx_bombe+i][posy_bombe].type,"joueur1")==0){
-            joueur1->vie=joueur1->vie-1;
             i=i+1;
             max_droite=max_droite+1;
         }
         else if(strcmp(map[posx_bombe+i][posy_bombe].type,"joueur2")==0){
-            joueur2->vie=joueur2->vie-1;
             i=i+1;
             max_droite=max_droite+1;
         }
         else if(strcmp(map[posx_bombe+i][posy_bombe].type,"bombe_amorcee")==0){
-            explosion(&(map[posx_bombe+i][posy_bombe]),map,renderer,joueur1,joueur2);
             i=portee+1; // la deuxieme bombe ira forcement plus loin que la première
             max_droite=max_droite+1;
         }
@@ -169,27 +165,22 @@ void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,j
             i=portee+1;
         }
         else if(strcmp(map[posx_bombe-i][posy_bombe].type,"bloc")==0){
-            map[posx_bombe-i][posy_bombe].type="vide";
             i=portee+1;
             max_gauche=max_gauche+1;
         }
         else if(strcmp(map[posx_bombe-i][posy_bombe].type,"bonus")==0){
-            map[posx_bombe-i][posy_bombe].type="vide";
             i=i+1;
             max_gauche=max_gauche+1;
         }
         else if(strcmp(map[posx_bombe-i][posy_bombe].type,"joueur1")==0){
-            joueur1->vie=joueur1->vie-1;
             i=i+1;
             max_gauche=max_gauche+1;
         }
         else if(strcmp(map[posx_bombe-i][posy_bombe].type,"joueur2")==0){
-            joueur2->vie=joueur2->vie-1;
             i=i+1;
             max_gauche=max_gauche+1;
         }
         else if(strcmp(map[posx_bombe-i][posy_bombe].type,"bombe_amorcee")==0){
-            explosion(&(map[posx_bombe-i][posy_bombe]),map,renderer,joueur1,joueur2);
             i=portee+1;
             max_gauche=max_gauche+1;
         }
@@ -206,27 +197,22 @@ void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,j
             i=portee+1;
         }
         else if(strcmp(map[posx_bombe][posy_bombe+i].type,"bloc")==0){
-            map[posx_bombe][posy_bombe+i].type="vide";
             i=portee+1;
             max_haut=max_haut+1;
         }
         else if(strcmp(map[posx_bombe][posy_bombe+i].type,"bonus")==0){
-            map[posx_bombe][posy_bombe+i].type="vide";
             i=i+1;
             max_haut=max_haut+1;
         }
         else if(strcmp(map[posx_bombe][posy_bombe+i].type,"joueur1")==0){
-            joueur1->vie=joueur1->vie-1;
             i=i+1;
             max_haut=max_haut+1;
         }
         else if(strcmp(map[posx_bombe][posy_bombe+i].type,"joueur2")==0){
-            joueur2->vie=joueur2->vie-1;
             i=i+1;
             max_haut=max_haut+1;
         }
         else if(strcmp(map[posx_bombe][posy_bombe+i].type,"bombe_amorcee")==0){
-            explosion(&(map[posx_bombe][posy_bombe+i]),map,renderer,joueur1,joueur2);
             i=portee+1;
             max_haut=max_haut+1;
         }
@@ -243,27 +229,22 @@ void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,j
             i=portee+1;
         }
         else if(strcmp(map[posx_bombe][posy_bombe-i].type,"bloc")==0){
-            map[posx_bombe][posy_bombe-i].type="vide";
             i=portee+1;
             max_bas=max_bas+1;
         }
         else if(strcmp(map[posx_bombe][posy_bombe-i].type,"bonus")==0){
-            map[posx_bombe][posy_bombe-i].type="vide";
             i=i+1;
             max_bas=max_bas+1;
         }
         else if(strcmp(map[posx_bombe][posy_bombe-i].type,"joueur1")==0){
-            joueur1->vie=joueur1->vie-1;
             i=i+1;
             max_bas=max_bas+1;
         }
         else if(strcmp(map[posx_bombe][posy_bombe-i].type,"joueur2")==0){
-            joueur2->vie=joueur2->vie-1;
             i=i+1;
             max_bas=max_bas+1;
         }
         else if(strcmp(map[posx_bombe][posy_bombe-i].type,"bombe_amorcee")==0){
-            explosion(&(map[posx_bombe][posy_bombe-i]),map,renderer,joueur1,joueur2);
             i=portee+1;
             max_bas=max_bas+1;
         }
@@ -273,51 +254,7 @@ void explosion(case_t* CASE,map_t map,SDL_Renderer* renderer,joueur_t* joueur1,j
 
         }
     }
-    CASE->type="vide";
-    printf("%d\n",max_droite);
+    
+    affichage_explosion(CASE,max_haut,max_bas,max_droite,max_gauche,renderer);
 
-    //Affichage de l'explosion
-    rectangle.x=7+posx_bombe*42;
-    rectangle.y=7+posy_bombe*42;
-    if(SDL_RenderFillRect(renderer,&rectangle)!=0)
-    {
-        SDL_Quit();
-    }
-    SDL_RenderPresent(renderer);
-    SDL_Delay(200);
-    i=1;
-    for(;i<=portee;++i){
-        if(i<=max_gauche){
-            rectangle.x=7+(posx_bombe-i)*42;
-            if(SDL_RenderFillRect(renderer,&rectangle)!=0)
-            {
-                SDL_Quit();
-            }
-        }
-        if(i<=max_droite){
-            rectangle.x=7+(posx_bombe+i)*42;
-            if(SDL_RenderFillRect(renderer,&rectangle)!=0)
-            {
-                SDL_Quit();
-            }
-        }
-        rectangle.x=7+posx_bombe*42;
-        if(i<=max_bas){
-            rectangle.y=7+(posy_bombe-i)*42;
-            if(SDL_RenderFillRect(renderer,&rectangle)!=0)
-            {
-                SDL_Quit();
-            }
-        }
-        if(i<=max_haut){
-            rectangle.y=7+(posy_bombe+i)*42;
-            if(SDL_RenderFillRect(renderer,&rectangle)!=0)
-            {
-                SDL_Quit();
-            }
-        }
-        SDL_RenderPresent(renderer);
-        SDL_Delay(200);
-    }
-    SDL_Delay(400);
 }
