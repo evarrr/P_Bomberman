@@ -74,10 +74,10 @@ void init_bloc_0(int taille,map_t map,SDL_Renderer* renderer){
 
 void init_joueur(map_t map,joueur_t* joueur_1,joueur_t* joueur_2)
 {
-    joueur_1->posx=1;
-    joueur_1->posy=1;
-    joueur_2->posx=13;
-    joueur_2->posy=13;
+    joueur_1->posx=17+42;
+    joueur_1->posy=17+42;
+    joueur_2->posx=17+42*13;
+    joueur_2->posy=17+42*13;
     map[1][1].type="joueur_1";
     map[13][13].type="joueur_2";
 }
