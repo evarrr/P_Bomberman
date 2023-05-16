@@ -12,6 +12,7 @@
 void SDL_ExitWIthError(const char* message);
 
 
+
 int main(int argc, char*argv[]){
     int taille=15;
     SDL_Window* window = NULL;
@@ -34,11 +35,10 @@ int main(int argc, char*argv[]){
     init_mur(taille,map,renderer);
     init_bloc_0(taille,map,renderer);
     init_joueur(map,&joueur1,&joueur2);
-    printf("%s\n",map[2][1].type);
-    // affichage_joueur_1(joueur1,renderer);
-    // map[5][1].type="bombe3cases";
-    // explosion(&map[5][1],map,renderer,&joueur1,&joueur2);
-    affichage_joueur_1(joueur1,renderer);
+    affichage_joueur_1(map,joueur1,renderer);
+    map[1][4].type="bombe3cases";
+    explosion(&map[1][4],map,renderer,&joueur1,&joueur2);
+    affichage_joueur_1(map,joueur1,renderer);
 
     SDL_RenderPresent(renderer);
     /*************************************************************/
@@ -61,31 +61,23 @@ int main(int argc, char*argv[]){
                         //deplacement du joueur1
                             case SDLK_UP:
                                 //fais le deplacement vers le haut
-                                deplacementJ1(map,&joueur1,HAUT);
-                                affichage_joueur_1(joueur1,renderer);       
-                                SDL_RenderPresent(renderer);               
+                                deplacementJ1(&map,&joueur1,HAUT);                      
                                 continue;           /*ne fait pas un break car sinon sort tres  vite*/
                             
                                                 
                             case SDLK_DOWN:
                                 // fait le deplacement vers le bas
-                                deplacementJ1(map,&joueur1,BAS);
-                                affichage_joueur_1(joueur1,renderer);
+                                deplacementJ1(&map,&joueur1,BAS);
                                 continue;
                             
                             case SDLK_RIGHT:
                                 // fait le deplacement vers la droite
-                                printf("test0\n");
-                                deplacementJ1(map,&joueur1,DROITE);
-                                printf("test1\n");
-                                affichage_joueur_1(joueur1,renderer);
-                                printf("test2\n");
+                                deplacementJ1(&map,&joueur1,DROITE);
                                 continue;
                             
                             case SDLK_LEFT:
                                 //fait le deplacement vers la gauche
-                                deplacementJ1(map,&joueur1,GAUCHE);
-                                affichage_joueur_1(joueur1,renderer);
+                                deplacementJ1(&map,&joueur1,GAUCHE);
                                 continue;
 
                         
@@ -123,6 +115,7 @@ int main(int argc, char*argv[]){
                 default:
                     break;       
             }
+            SDL_Delay(17);
         }
    } 
 
