@@ -49,7 +49,7 @@ void deplacementJ1(map_t map, joueur_t* joueur1,int direction){
 void deplacementJ2(map_t* map,joueur_t* joueur2,int direction){
     
     //Le joueur2 va se deplacer en utilisant les touches q,s,d,z
-    switch (direction){
+    switch (direction){ 
         case HAUT:
             if (strcmp(map[joueur2->posy -1][joueur2->posx]->type,"mur")==0){
                 break;

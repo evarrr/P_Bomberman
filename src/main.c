@@ -35,10 +35,12 @@ int main(int argc, char*argv[]){
     init_mur(taille,map,renderer);
     init_bloc_0(taille,map,renderer);
     init_joueur(map,&joueur1,&joueur2);
-    affichage_joueur_1(map,joueur1,renderer);
-    map[1][4].type="bombe3cases";
-    explosion(&map[1][4],map,renderer,&joueur1,&joueur2);
-    affichage_joueur_1(map,joueur1,renderer);
+    // affichage_joueur_1(map,joueur1,renderer);
+    // map[1][4].type="bombe3cases";
+    // explosion(&map[1][4],map,renderer,&joueur1,&joueur2);
+    // affichage_joueur_1(map,joueur1,renderer);
+
+    
 
     SDL_RenderPresent(renderer);
     /*************************************************************/
@@ -61,23 +63,23 @@ int main(int argc, char*argv[]){
                         //deplacement du joueur1
                             case SDLK_UP:
                                 //fais le deplacement vers le haut
-                                deplacementJ1(&map,&joueur1,HAUT);                      
+                                deplacementJ1(map,&joueur1,HAUT);                      
                                 continue;           /*ne fait pas un break car sinon sort tres  vite*/
                             
                                                 
                             case SDLK_DOWN:
                                 // fait le deplacement vers le bas
-                                deplacementJ1(&map,&joueur1,BAS);
+                                deplacementJ1(map,&joueur1,BAS);
                                 continue;
                             
                             case SDLK_RIGHT:
                                 // fait le deplacement vers la droite
-                                deplacementJ1(&map,&joueur1,DROITE);
+                                deplacementJ1(map,&joueur1,DROITE);
                                 continue;
                             
                             case SDLK_LEFT:
                                 //fait le deplacement vers la gauche
-                                deplacementJ1(&map,&joueur1,GAUCHE);
+                                deplacementJ1(map,&joueur1,GAUCHE);
                                 continue;
 
                         
@@ -86,23 +88,23 @@ int main(int argc, char*argv[]){
                         //deplacement du joueur2
                             case SDLK_z:
                                 //fais le deplacement vers le haut
-                                deplacementJ2(&map,&joueur2,HAUT);                      
+                                deplacementJ2(map,&joueur2,HAUT);                      
                                 break;           /*ne fait pas un break car sinon sort tres  vite*/
                             
                                                 
                             case SDLK_s:
                                 // fait le deplacement vers le bas
-                                deplacementJ2(&map,&joueur2,BAS);
+                                deplacementJ2(map,&joueur2,BAS);
                                 continue;
                             
                             case SDLK_d:
                                 // fait le deplacement vers la droite
-                                deplacementJ2(&map,&joueur2,DROITE);
+                                deplacementJ2(map,&joueur2,DROITE);
                                 continue;
                             
                             case SDLK_q:
                                 //fait le deplacement vers la gauche
-                                deplacementJ2(&map,&joueur2,GAUCHE);
+                                deplacementJ2(map,&joueur2,GAUCHE);
                                 continue;
 
                             
