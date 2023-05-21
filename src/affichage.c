@@ -115,29 +115,39 @@ void affichage_explosion(case_t* CASE,int max_haut,int max_bas,int max_droite,in
         }
         ++i;
     }
-    SDL_Delay(1500);
+    
 }
 
-void affichage_joueur_1(joueur_t joueur1,SDL_Renderer* renderer)
+void affichage_joueur(joueur_t joueur,int numero,SDL_Renderer* renderer)
 {
     if(SDL_SetRenderDrawColor(renderer,0,0,0,SDL_ALPHA_OPAQUE)!=0)
     {
         SDL_Quit();
     }
     SDL_Rect rectangle;
-    rectangle.w=22;
-    rectangle.h=22;
-    int x=joueur1.posx;
-    int y=joueur1.posy;
-    rectangle.x=x-1;
-    rectangle.y=y-1;
+    rectangle.w=24;
+    rectangle.h=24;
+    int x=joueur.posx;
+    int y=joueur.posy;
+    rectangle.x=x-2;
+    rectangle.y=y-2;
     if(SDL_RenderFillRect(renderer,&rectangle)!=0)
     {
         SDL_Quit();
     }
-    if(SDL_SetRenderDrawColor(renderer,100,100,255,SDL_ALPHA_OPAQUE)!=0)
+    if(numero==1)
     {
-        SDL_Quit();
+        if(SDL_SetRenderDrawColor(renderer,100,100,255,SDL_ALPHA_OPAQUE)!=0)
+        {
+            SDL_Quit();
+        }
+    }
+    else
+    {
+        if(SDL_SetRenderDrawColor(renderer,255,192,203,SDL_ALPHA_OPAQUE)!=0)
+        {
+            SDL_Quit();
+        }
     }
     rectangle.w=20;
     rectangle.h=20;

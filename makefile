@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -Werror -I include 
-LDFLAGS=`sdl2-config --cflags --libs` -lSDL2_image
+LDFLAGS=`sdl2-config --cflags --libs` 
 
 all:bomberman.x
 

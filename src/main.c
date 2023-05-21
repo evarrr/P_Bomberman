@@ -35,10 +35,12 @@ int main(int argc, char*argv[]){
     init_mur(taille,map,renderer);
     init_bloc_0(taille,map,renderer);
     init_joueur(map,&joueur1,&joueur2);
-    // affichage_joueur_1(map,joueur1,renderer);
+    // affichage_joueur_1(joueur1,renderer);
     // map[1][4].type="bombe3cases";
     // explosion(&map[1][4],map,renderer,&joueur1,&joueur2);
-    // affichage_joueur_1(map,joueur1,renderer);
+    affichage_joueur(joueur1,1,renderer);
+    affichage_joueur(joueur2,2,renderer);
+
 
     
 
@@ -60,55 +62,82 @@ int main(int argc, char*argv[]){
                 case SDL_KEYDOWN:           /*l'action s'effectuera quand on appuie sur la touche pas quand on la relache*/
                     switch(event.key.keysym.sym){
 
-                        //deplacement du joueur1
+                        //actions du joueur1
                             case SDLK_UP:
                                 //fais le deplacement vers le haut
-                                deplacementJ1(map,&joueur1,HAUT);                      
+                                deplacementJ1(map,&joueur1,HAUT);     
+                                affichage_joueur(joueur1,1,renderer);                 
                                 continue;           /*ne fait pas un break car sinon sort tres  vite*/
                             
                                                 
                             case SDLK_DOWN:
                                 // fait le deplacement vers le bas
                                 deplacementJ1(map,&joueur1,BAS);
+                                affichage_joueur(joueur1,1,renderer);
                                 continue;
                             
                             case SDLK_RIGHT:
                                 // fait le deplacement vers la droite
                                 deplacementJ1(map,&joueur1,DROITE);
+                                affichage_joueur(joueur1,1,renderer);
                                 continue;
                             
                             case SDLK_LEFT:
                                 //fait le deplacement vers la gauche
                                 deplacementJ1(map,&joueur1,GAUCHE);
+                                affichage_joueur(joueur1,1,renderer);
                                 continue;
 
+                            case SDLK_SPACE:
+                                case_t CASE=map[(joueur1.posx+5)/42][(joueur1.posy+5)/42];//on déclenche l'explosion aà l'endroit ou le centre du personnage est
+                                CASE.type="bombe3cases";
+                                explosion(&CASE,map,renderer,&joueur1,&joueur2);
+                                if(joueur2.vie==0){
+                                    printf("le premier joueur a gagné\n");
+                                    program_launched = SDL_FALSE;
+                                    break;
+                                }
+                                continue;
                         
 
 
                         //deplacement du joueur2
                             case SDLK_z:
                                 //fais le deplacement vers le haut
-                                deplacementJ2(map,&joueur2,HAUT);                      
-                                break;           /*ne fait pas un break car sinon sort tres  vite*/
+                                deplacementJ2(map,&joueur2,HAUT);  
+                                affichage_joueur(joueur2,2,renderer);
+                                continue;           /*ne fait pas un break car sinon sort tres  vite*/
                             
                                                 
                             case SDLK_s:
                                 // fait le deplacement vers le bas
                                 deplacementJ2(map,&joueur2,BAS);
+                                affichage_joueur(joueur2,2,renderer);
                                 continue;
                             
                             case SDLK_d:
                                 // fait le deplacement vers la droite
                                 deplacementJ2(map,&joueur2,DROITE);
+                                affichage_joueur(joueur2,2,renderer);
                                 continue;
                             
                             case SDLK_q:
                                 //fait le deplacement vers la gauche
                                 deplacementJ2(map,&joueur2,GAUCHE);
+                                affichage_joueur(joueur2,2,renderer);
                                 continue;
 
-                            
-
+                            case SDLK_e:
+                                //le j2 déclenche une explosion
+                                CASE=map[(joueur2.posx+5)/42][(joueur2.posy+5)/42];//on déclenche l'explosion à l'endroit ou le centre du personnage est
+                                CASE.type="bombe3cases";
+                                explosion(&CASE,map,renderer,&joueur1,&joueur2);
+                                if(joueur1.vie==0){
+                                    printf("le deuxième joueur a gagné\n");
+                                    program_launched = SDL_FALSE;
+                                    break;
+                                }
+                                continue;
                             //Cas par defaut
                             default:
                                 break;
